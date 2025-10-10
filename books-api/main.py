@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel, Field
 import uuid
 import json
@@ -17,6 +17,7 @@ books_db:list[dict[str,any]] = []
 
 def _load_data():
     global books_db
+    
     try:
         with open(DATA_FILE,'r') as f:
             books_db = json.load(f)
@@ -38,6 +39,7 @@ def _save_data():
         logger.error(f"Failed to save data to {DATA_FILE}: {e}")
 
 _load_data()
+# _save_data()
 # logger.info(f"data:  {books_db}")
 
 class Author(BaseModel):
@@ -81,3 +83,32 @@ def create_book(book_data:BookBase):
 
     logger.info(f"Book created with ID:{new_book['id']}")
     return new_book
+
+
+@app.get("/books/", response_model = list[Book]) #
+def read_all_books():
+    logger.info(f"Reading all {len(books_db)} books.")
+    return books_db
+
+@app.get("/books/{book_id}", response_model = Book)
+def read_single_book(book_id:str):
+    try:
+        target_uuid = uuid.UUID(book_id)
+    except ValueError:
+        logger.warning(f"invalid UUID format provided: {book_id}")
+        raise HTTPException(
+        status_code = status.HTTP_400_BAD_REQUEST, 
+            detail=f"Invalid book ID format: {book_id}. must be a valid UUID"
+        )
+
+    for book in books_db:
+        if book.get("id") == str(target_uuid):
+            logger.info(f"Successfully retrived book with ID:{book_id}")
+            return book
+    
+    logger.warning(f"Book not found with ID: {book_id}")
+
+    raise HTTPException(
+        status_code = status.HTTP_404_NOT_FOUND,
+        detail = f"Book with Id {book_id} not found."
+    )
