@@ -1,0 +1,38 @@
+[
+  {
+    "title": "1984",
+    "year": 1981,
+    "author": {
+      "name": "George Orwell",
+      "country": "UK"
+    },
+    "id": "3e426916-408e-491d-9f3d-c267daf5dccf"
+  },
+  {
+    "title": "1984",
+    "year": 1985,
+    "author": {
+      "name": "George Orwell",
+      "country": "UK"
+    },
+    "id": "2b5e6bac-e9ab-4926-b61e-44bdb3ac1b69"
+  },
+  {
+    "title": "Cosmic Rails",
+    "year": 2024,
+    "author": {
+      "name": "Alex K.",
+      "country": "USA"
+    },
+    "id": "c1119e55-4161-47c3-a87a-aa6f90eeff7e"
+  },
+  {
+    "title": "Cosmic Rails",
+    "year": 2024,
+    "author": {
+      "name": "Alex K.",
+      "country": "USA"
+    },
+    "id": "263b81da-38ce-4f5c-bf81-c77b181024c7"
+  }
+]
