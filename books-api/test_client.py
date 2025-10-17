@@ -60,7 +60,7 @@ def update_all():
       print("\n\n##################### . update the book (put) #####################")
       
       book_id = "a9b8c7d6-1f0e-47b1-b541-7755c6f89a1b"
-      url = f"http://localhost:8000/books/{book_id}"
+      url = f"http://127.0.0.1:8000/books/{book_id}"
       
       book_data = {
         "title": "1985",
