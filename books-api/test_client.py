@@ -74,8 +74,12 @@ def update_all():
       response = print_response("PUT: Updated existing book", response, 200)
     
       if response.status_code == 200:
-            NEW_BOOK_ID = response.json().get("id")
-            print(f"Successfully updated book. With ID: {NEW_BOOK_ID}")
+            book_id = response.json().get("id")
+            print(f"Successfully updated book. With ID: {book_id}")
+      
+      else:
+           print(f"Book not found with ID {book_id}")
+           
         
       return response.status_code == 200
 
