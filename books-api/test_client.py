@@ -2,11 +2,12 @@ import requests
 import json
 import time
 import os
+import uuid
 
 
 
-BASE_URL = "http://127.0.0.1:8000"
-BOOK_ENDPOINT = f"{BASE_URL}/books/"
+BASE_URL = "http://127.0.0.1:8000" #localhost base url
+BOOK_ENDPOINT = f"{BASE_URL}/books/" #post endpoint
 HEADERS = {"Content-Type": "application/json"}
 NEW_BOOK_ID = ""
 
@@ -54,6 +55,37 @@ def test_read_all():
     response = requests.get(BOOK_ENDPOINT)
     return print_response("GET: Read All Books", response, 200).status_code == 200
 
-# print_response()
+def update_all():
+      
+      print("\n\n##################### . update the book (put) #####################")
+      
+      book_id = "a9b8c7d6-1f0e-47b1-b541-7755c6f89a1b"
+      url = f"http://localhost:8000/books/{book_id}"
+      
+      book_data = {
+        "title": "1985",
+        "year": 1990,
+        "author": {
+        "name": "George rowell",
+        "country": "UAK"
+         }
+    }
+      response = requests.put(url, headers=HEADERS, json=book_data)
+      response = print_response("PUT: Updated existing book", response, 200)
+    
+      if response.status_code == 200:
+            NEW_BOOK_ID = response.json().get("id")
+            print(f"Successfully updated book. With ID: {NEW_BOOK_ID}")
+        
+      return response.status_code == 200
+
+    #   if response.status_code == 200:
+    #      print_response("PUT: updated book", response, 200)
+    #   else:
+    #      print(f"Failed to update book. Status: {response.status_code}, Response: {book_id} not found")
+      
+      
+#  print_response()
 # test_create_book()
-test_read_all()
+# test_read_all()
+update_all()

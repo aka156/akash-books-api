@@ -1,38 +1,20 @@
 [
   {
-    "title": "1984",
-    "year": 1981,
+    "id": "e22137d5-2e0f-48e0-a430-6644d6e98b0f",
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "year": 1979,
     "author": {
-      "name": "George Orwell",
+      "name": "Douglas Adams",
       "country": "UK"
-    },
-    "id": "3e426916-408e-491d-9f3d-c267daf5dccf"
+    }
   },
   {
-    "title": "1984",
-    "year": 1985,
+    "title": "1985",
+    "year": 1990,
     "author": {
-      "name": "George Orwell",
-      "country": "UK"
+      "name": "George rowell",
+      "country": "UAK"
     },
-    "id": "2b5e6bac-e9ab-4926-b61e-44bdb3ac1b69"
-  },
-  {
-    "title": "Cosmic Rails",
-    "year": 2024,
-    "author": {
-      "name": "Alex K.",
-      "country": "USA"
-    },
-    "id": "c1119e55-4161-47c3-a87a-aa6f90eeff7e"
-  },
-  {
-    "title": "Cosmic Rails",
-    "year": 2024,
-    "author": {
-      "name": "Alex K.",
-      "country": "USA"
-    },
-    "id": "263b81da-38ce-4f5c-bf81-c77b181024c7"
+    "id": "a9b8c7d6-1f0e-47b1-b541-7755c6f89a1b"
   }
 ]

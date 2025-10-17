@@ -112,3 +112,48 @@ def read_single_book(book_id:str):
         status_code = status.HTTP_404_NOT_FOUND,
         detail = f"Book with Id {book_id} not found."
     )
+
+
+#PUT :UPDAT operation
+
+@app.put("/books/{book_id}", response_model = Book)
+def update_book(book_id: str, book_data: BookBase):
+    try:
+        target_uuid = str(uuid.UUID(book_id))
+    except ValueError:
+        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail=f"Invalid book ID format:'{book_id}. Must be a valid UUID.")
+    found = False
+
+    for i, book in enumerate(books_db):
+        if book.get("id")== target_uuid:
+            updated_book = book_data.model_dump()
+            updated_book["id"]= target_uuid
+
+            books_db[i] = updated_book
+            _save_data()
+            logger.info(f"Book updated with ID : {book_id}")
+            found = True
+            return updated_book
+        
+    if not found:
+        logger.warning(f"Update failed. Book not found with ID: {book_id}")
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail=f"Book with ID: {book_id} not found. canno update")
+    
+@app.delete("/books/{book_id}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_book(book_id:str):
+    global books_db
+    try:
+        target_uuid=str(uuid.UUID(book_id))
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_BAD_REQUEST,detail=f"Invalid book id format:{book_id} Must be a valid UUID")
+    initial_length = len(books_db)
+    books_db = [book for book in books_db if book.get("id")!=target_uuid]
+
+    if len(books_db) < initial_length:
+        _save_data()
+        logger.info(f"Book successfully deleted with ID: {book_id}")
+
+        return
+    else:
+        logger.warning(f"Delete failed. Book not found with ID: {book_id}")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book with id {book_id} not found. cannot delete")
